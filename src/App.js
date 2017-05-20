@@ -13,6 +13,12 @@ class App extends Component {
 
   render() {
     const { activeItem } = this.state;
+    let news = this.props.news;
+    if (news === undefined) {
+      alert('Error with firebase');
+      return;
+    }
+
     console.log("props", this.props);
     return (
       <div>
@@ -21,7 +27,7 @@ class App extends Component {
           <Menu.Item name='newest' active={activeItem === 'newest'} onClick={this.handleItemClick} />
           <Menu.Item name='hottest' active={activeItem === 'hottest'} onClick={this.handleItemClick} />
         </Menu>
-        <List/>
+        <List items={news}/>
         {/* <ExampleComponent /> */}
       </div>
     );

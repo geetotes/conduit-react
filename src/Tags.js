@@ -15,7 +15,7 @@ class Tags extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      tags: [],
+      tags: props.tags || [],
       tag: ''
     };
     this._remove = this._remove.bind(this);
