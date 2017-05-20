@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react'
 import { Input } from 'semantic-ui-react'
+import { Icon, Label } from 'semantic-ui-react'
+
 
 const Tag = (props) => {
+  let text = props.text;
   return(
-    <div>
-      <span>{props.text}</span>
-      <Button name={props.text} onClick={props.remove}>[X]</Button>
-    </div>
+    <Label>
+      <span>{text}</span>
+      <Icon name={'delete'} onClick={() => props.remove(text)} />
+    </Label>
   )
 }
 class Tags extends Component {
@@ -40,7 +43,7 @@ class Tags extends Component {
 
   _remove(e) {
     let tags = this.state.tags.filter((t) => {
-      return t !== e.target.name
+      return t !== e
     });
 
     this.setState({

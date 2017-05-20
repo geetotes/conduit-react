@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Tags from './Tags.js';
 import Books from './Books.js';
-import { Grid, Image } from 'semantic-ui-react'
-
+import { Grid, Image, Label } from 'semantic-ui-react'
 
 class List extends Component {
   render() {
@@ -21,7 +20,8 @@ class List extends Component {
               </Grid.Column>
               <Grid.Column width={13}>
 
-                <h4>{d.title}</h4>
+                <Label as='a' color='red' ribbon>{d.title}</Label>
+                <p>12 minutes ago</p>
                 <p>{d.description}</p>
                 <Tags/>
                 <Books/>
