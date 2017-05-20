@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react'
-import { Input } from 'semantic-ui-react'
-import { Icon, Label } from 'semantic-ui-react'
-
+import { Icon, Label, Button, Input, Segment } from 'semantic-ui-react';
 
 const Tag = (props) => {
   let text = props.text;
@@ -13,6 +10,7 @@ const Tag = (props) => {
     </Label>
   )
 }
+
 class Tags extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +18,6 @@ class Tags extends Component {
       tags: [],
       tag: ''
     };
-
     this._remove = this._remove.bind(this);
     this._change = this._change.bind(this);
     this._add = this._add.bind(this);
@@ -52,15 +49,13 @@ class Tags extends Component {
   }
 
   render() {
+    let icon = this.props.icon;
     return(
-      <div className='tags'>
-        {this.state.tags.map((t) => <Tag text={t} remove={this._remove} />)}
-        <form onSubmit={this._add}>
-          <Input type='text' onChange={this._change} value={this.state.tag} />
-          <Button type='submit'>Add</Button>
-        </form>
-        
-      </div>
+      <Segment>
+        <Icon name={icon}/>
+          {this.state.tags.map((t) => <Tag text={t} remove={this._remove} />)}
+          <Input type='text' size='mini' onChange={this._change} value={this.state.tag} action={{ onClick: this._add, content: 'Add' , icon: 'add'}} />
+      </Segment>
     );
   }
 }

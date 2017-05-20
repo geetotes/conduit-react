@@ -19,11 +19,11 @@ class List extends Component {
                 <Image src={`https://robohash.org/${i}.jpg`}/>
               </Grid.Column>
               <Grid.Column width={13}>
-
                 <Label as='a' color='red' ribbon>{d.title}</Label>
                 <p>12 minutes ago</p>
                 <p>{d.description}</p>
-                <Tags/>
+                <Tags key={`tags-$i`} icon={'tags'}/>
+                <Tags key={`users-$i`} icon={'user circle outline'}/>
                 <Books/>
               </Grid.Column>
             </Grid.Row>
