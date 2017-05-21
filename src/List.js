@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 class List extends Component {
   state = {
-    isChecked: false,
+    // isChecked: false,
 }
   constructor(props) {
     super(props);
@@ -19,10 +19,11 @@ class List extends Component {
   }
 
   checkBooked(e, data, news){
-    console.log("checked", data);
-    this.setState({isChecked: !this.state.isChecked});
-    if(this.state.isChecked){
-      this.props.newsActionsTemp.adduserArticle({userId: this.props.selectedBook, newsId: data._id, order: 1 });
+    console.log("checked", data, e, news);
+    // this.setState({isChecked: !this.state.isChecked});
+    if(data.checked){
+      let allData = this.props.userArticle || [];
+      this.props.newsActionsTemp.adduserArticle({_id: allData.length || 0,  userId: this.props.selectedBook, newsId: news._id, order: 1 });
     }else{
       // this.props.find
     }
@@ -88,8 +89,7 @@ class List extends Component {
                     <Grid.Column>
                       <Checkbox
                         label={{ children: 'Select' }}
-                        checked={this.state.isChecked}
-                        onChange={(e,data) => this.checkBooked(e. data ,d)} />
+                        onChange={(e,data) => this.checkBooked(e, data ,d)} />
                     </Grid.Column>
                   }
                 </Grid.Row>
