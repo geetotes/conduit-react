@@ -5,7 +5,8 @@
   "dependencies": {
     "firebase": "^4.0.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1"
   },
   "devDependencies": {
     "react-router": "^4.1.1",

@@ -6,7 +6,14 @@ import './index.css';
 import * as firebase from 'firebase';
 
 
+import Home from './Home';
+import MainPage from './MainPage';
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 const config = {
    apiKey: "AIzaSyA5Fh7tb7DREA5fgAKwJjh_llXfIKs9iMs",
    authDomain: "my-test-website-c0fcc.firebaseapp.com",
@@ -21,11 +28,32 @@ const fb = firebase
   .database()
   .ref();
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+  const addNews = data => fb.child('news').push(data, response => response);
+  const updateNews = (id, data) => fb.child(`news/${id}`).update(data, response => response);
+  export const newsActions = {
+    addNews,
+    updateNews,
+  };
+
 fb.on('value', snapshot => {
   const store = snapshot.val();
+  console.log("index.js", store)
   ReactDOM.render(
-    <App {...store} />,
+    <Router {...store}>
+    <div>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/home">About</Link></li>
+        <li><Link to="/main">Topics</Link></li>
+      </ul>
+
+      <hr/>
+
+      <Route exact path="/" component={(props) => <App {...props} data={store} newsActionsTemp={newsActions}/>} />
+      <Route path="/home" component={Home}   />
+      <Route path="/main/:newsID" component={MainPage}   />
+    </div>
+  </Router>,
     document.getElementById('root')
   );
 });
