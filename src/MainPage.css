@@ -20,6 +20,7 @@
 .footerBar {
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .timeTag {
@@ -30,6 +31,6 @@
   width: 100%;
 }
 
-.commentSection  > div{
+.comment {
   margin: auto;
 }

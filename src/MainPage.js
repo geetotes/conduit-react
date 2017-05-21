@@ -40,6 +40,7 @@ class MainPage extends Component {
           <h5>{news? news.description : "No new was found"}</h5>
           <div className="commentSection">
             {news&&<NewsComment item={news}
+              className = "comment"
               users={this.props.data.users}
               updateNews={this.props.newsActionsTemp.updateNews}
               userActions={this.props.userActions} />}
