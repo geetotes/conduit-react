@@ -72,7 +72,7 @@ class List extends Component {
     let userArticle = Object.keys(this.props.userArticle).map(key => this.props.userArticle[key]) || [];
     const newsActions = this.props.newsActionsTemp;
     let feedback = null;
-    if (this.props.activeItem === 'yesterday') {
+    if (this.props.activeItem === 'sent') {
       let options = [
         {
           key: 1,

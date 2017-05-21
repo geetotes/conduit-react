@@ -133,10 +133,10 @@ class BookTags extends Component {
 
     if (availTags.length > 0) {
       let newTags = currentTags.concat(availTags[Math.floor(Math.random()*availTags.length)]);
-      this.setState({
-        tags: newTags
-      });
-    }
+      alert(`Brefing book suggestions: ${newTags}`);
+    } 
+
+
   }
 
   render() {
@@ -168,7 +168,7 @@ class BookTags extends Component {
             floated={'right'} 
             icon='cubes' 
             labelPosition='left' 
-            content='Auto-Categorize' 
+            content='Suggest' 
             onClick={this.autoCategorize}/>
       </Segment>
     );

@@ -169,7 +169,7 @@ class App extends Component {
           <Menu.Item header>Today's News</Menu.Item>
           <Menu.Item name='newest' active={activeItem === 'newest'} onClick={this.handleItemClick} />
           <Menu.Item name='oldest' active={activeItem === 'oldest'} onClick={this.handleItemClick} />
-          <Menu.Item name='yesterday' active={activeItem === 'yesterday'} onClick={this.handleItemClick} />
+          <Menu.Item name='sent' active={activeItem === 'sent'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
             <Menu.Item>
               {this.state.tagFilters.map((t) => {
