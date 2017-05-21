@@ -10,7 +10,6 @@ var scoreCards = [];
 function algFunction(store) {
     getKeys(store.userBooks);
     setOrder(store.news);
-
     return store;
 }
 
