@@ -84,7 +84,6 @@ class App extends Component {
             <Menu.Item>
               <Dropdown
                 placeholder='Book'
-                multiple
                 search
                 selection
                 options={books} />
