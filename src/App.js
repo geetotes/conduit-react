@@ -11,9 +11,11 @@ class App extends Component {
   state = {
     tagFilters: [] ,
     bookVal: '',
-    selectedBook: null
-}
-  // state = { tagFilters: [], selectedBook: null }
+    selectedBook: null,
+    selectDisabled: false
+  }
+
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   constructor(props) {
@@ -24,7 +26,7 @@ class App extends Component {
     this.changeBook = this.changeBook.bind(this);
     this._r = this._r.bind(this);
     this._nullFunc = this._nullFunc.bind(this);
-    // this.popularActive = this.popularActive.bind(this);
+    this.selectDisabled = this.selectDisabled.bind(this);
   }
 
   componentDidMount() {
@@ -80,8 +82,16 @@ class App extends Component {
     });
   }
 
-
   _nullFunc(t) {
+  }
+
+  selectDisabled(e) {
+    e.preventDefault;
+    let selectDisabled = this.state.selectDisabled;
+    this.setState({
+      selectDisabled: !selectDisabled
+    });
+    alert('Book sent!');
   }
 
   render() {
@@ -191,7 +201,11 @@ class App extends Component {
                 options={books} />
             </Menu.Item>
             <Menu.Item>
-              <Button icon='send' disable={bookVal} className="snedButton"/>
+              <Button
+                icon='send'
+                disable={bookVal}
+                onClick={this.selectDisabled}
+                className="snedButton"/>
             </Menu.Item>
           </Menu.Menu>
         </Menu>
@@ -203,6 +217,7 @@ class App extends Component {
           )} */}
         <List
           selectedBook={this.state.bookVal}
+          selectDisabled={this.state.selectDisabled}
           items={news}
           userArticle={this.props.data.userArticle}
           userBooks={this.props.data.userBooks}

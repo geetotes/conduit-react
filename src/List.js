@@ -7,11 +7,22 @@ import BookTags from './BookTags.js';
 import './App.css';
 import * as moment from 'moment';
 import { Link } from 'react-router-dom';
+// import * as firebase from 'firebase';
+//
+//
+// const config = {
+//    apiKey: "AIzaSyA5Fh7tb7DREA5fgAKwJjh_llXfIKs9iMs",
+//    authDomain: "my-test-website-c0fcc.firebaseapp.com",
+//    databaseURL: "https://my-test-website-c0fcc.firebaseio.com",
+//    projectId: "my-test-website-c0fcc",
+//    storageBucket: "my-test-website-c0fcc.appspot.com",
+//    messagingSenderId: "575661525828"
+//  };
 
 class List extends Component {
   state = {
-    // isChecked: false,
-}
+    isChecked: false,
+  }
   constructor(props) {
     super(props);
     this.checkBooked = this.checkBooked.bind(this);
@@ -20,10 +31,11 @@ class List extends Component {
 
   checkBooked(e, data, news){
     console.log("checked", data, e, news);
-    // this.setState({isChecked: !this.state.isChecked});
+    let checked = this.state.isChecked;
+    this.setState({isChecked: !checked });
     if(data.checked){
       let allData = this.props.userArticle || [];
-      this.props.newsActionsTemp.adduserArticle({userId: this.props.selectedBook, newsId: news._id, order: 1 });
+  //    this.props.newsActionsTemp.adduserArticle({userId: this.props.selectedBook, newsId: news._id, order: 1 });
     }else{
       // this.props.find
       console.log("this.props.userArticle", this.props.userArticle);
@@ -34,7 +46,7 @@ class List extends Component {
 
         if(selectedArtices[tempProps].userId == this.props.selectedBook && selectedArtices[tempProps].newsId == news._id){
           console.log("Found", tempProps);
-          this.props.newsActionsTemp.removeUserArticle(tempProps);
+          //this.props.newsActionsTemp.removeUserArticle(tempProps);
         }
       }
       e.preventDefault();
@@ -100,6 +112,8 @@ class List extends Component {
 
     const userBooks = this.props.userBooks;
 
+    let sentDisabled = this.props.selectDisabled;
+
     return (
       <Grid celled>
         {items.map((d,i) => {
@@ -119,7 +133,8 @@ class List extends Component {
                   {(this.props.selectedBook&& d.userBooks.indexOf(this.props.selectedBook) > -1 ) &&
                     <Grid.Column>
                       <Checkbox
-                        checked={userArticle.filter((v,i,k) => { console.log(v.newsId , d._id , v.userId  , this.props.selectedBook ); return v.newsId === d._id&& v.userId === this.props.selectedBook;}).length > 0}
+                        disabled={this.props.selectDisabled}
+                        checked={this.state.checked}
                         label={{ children: 'Select' }}
                         onChange={(e,data) => this.checkBooked(e, data ,d)} />
                     </Grid.Column>
