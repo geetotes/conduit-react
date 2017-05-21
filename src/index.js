@@ -33,6 +33,7 @@ const fb = firebase
   const addNews = data => fb.child('news').push(data, response => response);
   const adduserArticle = data => fb.child("userArticle").push(data, response => response);
   // this.bindAsArray(fb.child("userArticle"), "userArticle");
+  const removeUserArticle = (id) => fb.child("userArticle").child(id).remove();
 
   const updateNews = (id, data) => fb.child(`news/${id}`).update(data, response => response);
   export const newsActions = {
@@ -40,6 +41,7 @@ const fb = firebase
     updateNews,
     getNewsbyId,
     adduserArticle,
+    removeUserArticle
   };
   //User API
   const getUsersbyId = id => fb.child('users').child(id);
