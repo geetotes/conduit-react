@@ -16,7 +16,6 @@ class App extends Component {
 
     this.addTag = this.addTag.bind(this);
     this.removeTag = this.removeTag.bind(this);
-    //this.handleItemClick = this.handleItemClick(this);
   }
 
   componentDidMount() {
@@ -55,11 +54,11 @@ class App extends Component {
     let news = this.props.data.news;
     console.log("APP", this.props);
 
-    let books = this.props.data.users.map((u) => {
+    let books = this.props.data.userBooks.map((u) => {
       return {
         key: `book-list-${u._id}`,
         value: u._id,
-        text: u.name,
+        text: u.fullName,
       };
     });
 
