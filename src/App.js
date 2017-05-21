@@ -6,7 +6,6 @@ import Tag from './Tag.js';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
-
 class App extends Component {
   state = { tagFilters: [] }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -16,6 +15,8 @@ class App extends Component {
 
     this.addTag = this.addTag.bind(this);
     this.removeTag = this.removeTag.bind(this);
+    this._r = this._r.bind(this);
+    this._nullFunc = this._nullFunc.bind(this);
   }
 
   componentDidMount() {
@@ -41,12 +42,25 @@ class App extends Component {
   }
 
   removeTag(e) {
-    let tags = this.stateTagFilters.filter((t) => {
+    let tags = this.state.tagFilters.filter((t) => {
       return t !== e.detail;
     });
     this.setState({
       tagFilters: tags
     });
+  }
+
+  _r(tag) {
+    let tags = this.state.tagFilters.filter((t) => {
+      return t !== tag;
+    });
+    this.setState({
+      tagFilters: tags
+    });
+  }
+
+  _nullFunc(t) {
+    //do nothing
   }
 
   render() {
@@ -62,6 +76,18 @@ class App extends Component {
       };
     });
 
+    if (this.state.tagFilters.length > 0) {
+      let filters = this.state.tagFilters;
+      news = news.filter((n) => {
+        if (n.tags !== undefined) {
+          let matchCount = n.tags.filter((nn) => filters.includes(nn));
+          return matchCount.length > 0;
+        } else {
+          return false;
+        }
+      });
+    }
+
     return (
       <div>
         <Menu>
@@ -73,9 +99,9 @@ class App extends Component {
             <Menu.Item>
               {this.state.tagFilters.map((t) => {
                 return <Tag key={`header-tag-for-${t}`}
-                  filter={null}
+                  filter={this._nullFunc}
                   text={t}
-                  remove={null} />
+                  remove={this._r} />
 
               })}
             </Menu.Item>
