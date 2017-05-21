@@ -16,16 +16,17 @@ function algFunction(store) {
 /*
 Assigns tags to a key pair
  */
-function getKeys(thekeys){
-    for (var i=0; i<thekeys.size; i++){
-        hash[thekeys[i]] = thekeys;
+function getKeys(theKeys){
+    for (var i=0; i<theKeys.size; i++){
+        hash[theKeys[i]] = theKeys;
     }
 }
 
+/*
 function executeOrdering(user, articles) {
     setOrder(getImportance(user), articles);
     return
-}
+}*/
 
 /*
 Finding the order of articles
@@ -40,3 +41,4 @@ function setOrder(articles) {
     }
 }
 
+export default algFunction;
