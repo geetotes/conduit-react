@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Label, Button, Input, Segment } from 'semantic-ui-react';
-
-const Tag = (props) => {
-  let text = props.text;
-  return(
-    <Label>
-      <span onClick={props.filter(text)}>{text}</span>
-      <Icon name={'delete'} onClick={() => props.remove(text)} />
-    </Label>
-  )
-}
+import Tag from './Tag.js';
 
 class Tags extends Component {
   constructor(props) {
@@ -40,13 +31,15 @@ class Tags extends Component {
   }
 
   _filter(t) {
-    //this.props.filter(t)
+    let e = new CustomEvent('addTag', { detail: t });
+    window.dispatchEvent(e);
   }
 
   _remove(e) {
     let tags = this.state.tags.filter((t) => {
       return t !== e
     });
+    let ev = new CustomEvent('removeTag', { detail: e });
 
     this.setState({
       tags: tags
