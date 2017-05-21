@@ -1,28 +1,35 @@
 .mainImg {
-
   max-width: 200px;
-max-height: 200px;
+  max-height: 200px;
 }
 
 .mainPanel {
   max-width: 80%;
-margin: auto;
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 30px;
-border: 5px solid #1759c4;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  border: 5px solid #1759c4;
 }
 
 .row {
   display: flex;
 }
-.footerBar {
 
+.footerBar {
   justify-content: space-between;
   width: 100%;
 }
 
 .timeTag {
   margin: 0;
+}
+
+.commentSection {
+  width: 100%;
+}
+
+.commentSection  > div{
+  margin: auto;
 }

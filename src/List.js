@@ -3,6 +3,8 @@ import Tags from './Tags.js';
 import Books from './Books.js';
 import { Grid, Image, Label, Dropdown, Icon } from 'semantic-ui-react'
 import './App.css';
+import * as moment from 'moment';
+import { Link } from 'react-router-dom';
 
 class List extends Component {
   constructor(props) {
@@ -53,8 +55,8 @@ class List extends Component {
               <Grid.Column width={13}>
                 <Label as='a' color='red' ribbon>{d.title}</Label>
                 {feedback}
-                <p>{d.publishedAt}</p>
-                <p>{d.description}</p>
+                <p>{moment(d.publishedAt).fromNow()}</p>
+                <p><Link to={"/main/"+ d._id}>{d.description}</Link></p>
                 <Tags key={`tags-$i`} icon={'tags'}
                   tags={d.tags}
                   item={d}
