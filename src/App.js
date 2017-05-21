@@ -13,7 +13,7 @@ class App extends Component {
     bookVal: '',
     selectedBook: null
 }
-  state = { tagFilters: [], selectedBook: null }
+  // state = { tagFilters: [], selectedBook: null }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   constructor(props) {
@@ -24,6 +24,7 @@ class App extends Component {
     this.changeBook = this.changeBook.bind(this);
     this._r = this._r.bind(this);
     this._nullFunc = this._nullFunc.bind(this);
+    // this.popularActive = this.popularActive.bind(this);
   }
 
   componentDidMount() {
@@ -143,6 +144,25 @@ class App extends Component {
       });
     }
 
+    const popularActive = (news) => {
+      var results = {};
+      for (var i = 0; i < news.length; i++) {
+        const everyTagsOnNews = news[i].tags || [];
+        for (var j = 0; j < everyTagsOnNews.length; j++) {
+          if(results[everyTagsOnNews[j]]){
+            results[everyTagsOnNews[j]]++ ;
+          }else{
+            results[everyTagsOnNews[j]] = 1;
+          }
+        }
+      }
+      console.log("result", results);
+       const tempResult = Object.keys(results).map((key) => ({count: results[key], value: key})) || [];
+       console.log("tempResult", tempResult);
+
+      return tempResult;
+    }
+
     return (
       <div>
         <Menu>
@@ -175,6 +195,12 @@ class App extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
+
+        {/* {popularActive(this.props.data.news).map((x, tempIndex)=>
+          <Tag
+            key={`overall-for-${tempIndex}`}
+            text={x.value + " " + x.count}/>
+          )} */}
         <List
           selectedBook={this.state.bookVal}
           items={news}

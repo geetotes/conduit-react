@@ -37,6 +37,8 @@ class List extends Component {
           this.props.newsActionsTemp.removeUserArticle(tempProps);
         }
       }
+      e.preventDefault();
+
       // this.prps.newsActionsTemp.removeUserArticle();
     }
   }
