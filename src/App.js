@@ -118,7 +118,6 @@ class App extends Component {
         return b.text === this.state.selectedBook
       });
 
-
       let _id = book[0].value;
       news = news.filter((n) => {
         if (n.userBooks === undefined) {
@@ -132,12 +131,24 @@ class App extends Component {
       });
     }
 
+    if (activeItem === 'newest') {
+      news = news.sort((a, b) => {
+        return (new Date(b.publishedAt) - new Date(a.publishedAt));
+      });
+    }
+
+    if (activeItem === 'oldest') {
+      news = news.sort((a, b) => {
+        return (new Date(a.publishedAt) - new Date(b.publishedAt));
+      });
+    }
+
     return (
       <div>
         <Menu>
-          <Menu.Item header>Today's Shit</Menu.Item>
+          <Menu.Item header>Today's News</Menu.Item>
           <Menu.Item name='newest' active={activeItem === 'newest'} onClick={this.handleItemClick} />
-          <Menu.Item name='hottest' active={activeItem === 'hottest'} onClick={this.handleItemClick} />
+          <Menu.Item name='oldest' active={activeItem === 'oldest'} onClick={this.handleItemClick} />
           <Menu.Item name='yesterday' active={activeItem === 'yesterday'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
             <Menu.Item>

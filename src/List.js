@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Tags from './Tags.js';
 import Books from './Books.js';
 import { Grid, Image, Label, Dropdown, Icon, Checkbox } from 'semantic-ui-react'
+import BookTags from './BookTags.js';
+// import { Grid, Image, Label, Dropdown, Icon } from 'semantic-ui-react'
 import './App.css';
 import * as moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -63,13 +65,14 @@ class List extends Component {
     }
 
     const userBooks = this.props.userBooks;
+    let now = moment();
 
     return (
       <Grid celled>
         {items.map((d,i) => {
-          // const userbookTags = d.userBooks? d.userBooks.map((x) => {
-          //   return userBooks.filter(y => y._id === x)[0].fullName;
-          // }) : [];
+          const userbookTags = d.userBooks? d.userBooks.map((x) => {
+            return userBooks.filter(y => y._id === x)[0].fullName;
+          }) : [];
           // console.log("news", d._id, "userbooks", d.userBooks, userbookTags);
           return (
             <Grid.Row key={`grid-item-${i}`}>
@@ -79,7 +82,7 @@ class List extends Component {
               <Grid.Column width={13}>
                 <Grid.Row columns={2}>
                   <Grid.Column>
-                    <Label as='a' color='red' ribbon size={'large'}>{d.title}</Label>
+                    <Label as='a' color={now.diff(moment(d.publishedAt), 'hours') > 24 ? 'grey' : 'red'} ribbon>{d.title}</Label>
                   </Grid.Column>
                   {(this.props.selectedBook&& d.userBooks.indexOf(this.props.selectedBook) > -1 ) &&
                     <Grid.Column>
@@ -90,6 +93,7 @@ class List extends Component {
                     </Grid.Column>
                   }
                 </Grid.Row>
+
                 {feedback}
                 <p>{moment(d.publishedAt).fromNow()}</p>
                 <p><Link to={"/main/"+ d._id}>{d.description}</Link></p>
@@ -99,8 +103,9 @@ class List extends Component {
                   itemPropsName={'tags'}
                   updateTags={newsActions.updateNews}/>
 
-                <Tags key={`users-$i`} icon={'user circle outline'}
-                  tags={this.getUserTagByName(d)}
+
+                <BookTags key={`users-$i`} icon={'user circle outline'}
+                  tags={userbookTags}
                   item={d}
                   options={userBooks}
                   itemPropsName={'userBooks'}
