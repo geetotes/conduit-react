@@ -5,7 +5,7 @@ const Tag = (props) => {
   let text = props.text;
   return(
     <Label>
-      <span>{text}</span>
+      <span onClick={props.filter(text)}>{text}</span>
       <Icon name={'delete'} onClick={() => props.remove(text)} />
     </Label>
   )
@@ -15,12 +15,13 @@ class Tags extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      tags: [],
+      tags: props.tags || [],
       tag: ''
     };
     this._remove = this._remove.bind(this);
     this._change = this._change.bind(this);
     this._add = this._add.bind(this);
+    this._filter = this._filter.bind(this);
   }
 
   _add(e) {
@@ -38,6 +39,10 @@ class Tags extends Component {
     });
   }
 
+  _filter(t) {
+    //this.props.filter(t)
+  }
+
   _remove(e) {
     let tags = this.state.tags.filter((t) => {
       return t !== e
@@ -53,7 +58,13 @@ class Tags extends Component {
     return(
       <Segment>
         <Icon name={icon}/>
-          {this.state.tags.map((t) => <Tag text={t} remove={this._remove} />)}
+          {this.state.tags.map((t) => {
+            return (<Tag 
+              key={`tag-for-${t}`}
+              filter={this._filter}
+              text={t} 
+              remove={this._remove} />)
+          })}
           <Input type='text' size='mini' onChange={this._change} value={this.state.tag} action={{ onClick: this._add, content: 'Add' , icon: 'add'}} />
       </Segment>
     );
