@@ -13,18 +13,18 @@ class App extends Component {
 
   render() {
     const { activeItem } = this.state;
-    let news = this.props.news;
-    if (news === undefined) {
-      alert('Error with firebase -- news is undefined');
-      return;
-    }
+    let news = this.props.data.news;
+    // if (news === undefined) {
+    //   alert('Error with firebase -- news is undefined');
+    //   return;
+    // }
+    //
+    // if (this.props.users === undefined) {
+    //   alert('Error with firebase -- users are undefined');
+    //   return;
+    // }
 
-    if (this.props.users === undefined) {
-      alert('Error with firebase -- users are undefined');
-      return;
-    }
-
-    let books = this.props.users.map((u) => {
+    let books = this.props.data.users.map((u) => {
       return {
         key: `book-list-${u._id}`,
         value: u._id,
@@ -43,7 +43,7 @@ class App extends Component {
           <Menu.Item name='yesterday' active={activeItem === 'yesterday'} onClick={this.handleItemClick} />
           <Menu.Menu position='right'>
             <Menu.Item>
-              <Dropdown 
+              <Dropdown
                 placeholder='Book'
                 multiple
                 search
