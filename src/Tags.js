@@ -25,6 +25,10 @@ class Tags extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({tags: nextProps.tags || []});
+  }
+
   updateNewsAPI(newTags){
     console.log("update news", newTags, this.props.updateTags )
     if(this.props.updateTags){
