@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './MainPage.css';
 import 'semantic-ui-css/semantic.min.css';
 import * as moment from 'moment';
-// import './../public/css/font-awesome.min.css';
 import IconBar from './IconBar';
 import NewsComment from './NewsComment';
 

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { Menu, Dropdown } from 'semantic-ui-react'
+import { Menu, Dropdown, Button } from 'semantic-ui-react'
 import logo from './logo.svg';
 import List from './List.js';
 import Tag from './Tag.js';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
+import './App.css';
 
 
 class App extends Component {
-  state = { tagFilters: [] }
+  state = {
+    tagFilters: [] ,
+    bookVal: '',
+}
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   constructor(props) {
@@ -16,6 +20,8 @@ class App extends Component {
 
     this.addTag = this.addTag.bind(this);
     this.removeTag = this.removeTag.bind(this);
+    this.onChangeBook = this.onChangeBook.bind(this);
+
   }
 
   componentDidMount() {
@@ -49,8 +55,13 @@ class App extends Component {
     });
   }
 
+  onChangeBook(e, data){
+    console.log("onchange", data);
+    this.setState({bookVal: data.value})
+  }
+
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, bookVal } = this.state;
     let news = this.props.data.news;
     console.log("APP", this.props);
 
@@ -83,14 +94,22 @@ class App extends Component {
           <Menu.Menu position='right'>
             <Menu.Item>
               <Dropdown
+                onChange={(e, data) => this.onChangeBook(e, data)}
                 placeholder='Book'
                 search
                 selection
                 options={books} />
             </Menu.Item>
+            <Menu.Item>
+              <Button icon='send' disable={bookVal} className="snedButton"/>
+            </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <List items={news} userBooks={this.props.data.userBooks} activeItem={activeItem} newsActionsTemp={this.props.newsActionsTemp} />
+        <List
+          items={news}
+          userBooks={this.props.data.userBooks}
+          activeItem={activeItem}
+          newsActionsTemp={this.props.newsActionsTemp} />
       </div>
     );
   }

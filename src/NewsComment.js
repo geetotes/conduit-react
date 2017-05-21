@@ -36,7 +36,11 @@ this._changeUser= this._changeUser.bind(this);
 
   submintComment(e){
     console.log("submit",  e, this.state);
-
+    let newComment = {title: this.state.commentText, userId: this.state.userId};
+    let updateComments = this.props.item.comments || [];
+    updateComments.push(newComment);
+    const updateNews = Object.assign({}, this.props.item, {comments: updateComments})
+    this.props.updateNews(this.props.item._id, updateNews);
     e.preventDefault();
 
   }
@@ -47,10 +51,10 @@ this._changeUser= this._changeUser.bind(this);
     });
   }
 
-  _changeUser(e) {
-    console.log("dropdown", e.target.value)
+  _changeUser(e,data) {
+    console.log("dropdown", data.value)
     this.setState({
-      userId: e.target.value
+      userId: data.value
     });
   }
   render() {
@@ -82,7 +86,7 @@ this._changeUser= this._changeUser.bind(this);
           <Form.TextArea onChange={this._changeText}/>
           <Form.Dropdown placeholder='Name' search selection
             options={usersOption}
-            onChange={this._changeUser}
+            onChange={(e,data) => this._changeUser(e,data)}
             value={this.state.userId}
           />
 

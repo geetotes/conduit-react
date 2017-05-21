@@ -1,3 +1,7 @@
 .row {
   display: flex;
 }
+.snedButton {
+  max-height: 40px;
+  margin: 10px;
+}
