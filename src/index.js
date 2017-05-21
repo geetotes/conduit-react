@@ -41,6 +41,8 @@ fb.on('value', snapshot => {
   // console.log("snapshot", snapshot)
 
   const store = snapshot.val();
+
+
   console.log("index.js", store)
   ReactDOM.render(
     <Router {...store}>
