@@ -7,7 +7,7 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
-  state = { tagFilters: [] }
+  state = { tagFilters: [], selectedBook: null }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   constructor(props) {
@@ -15,6 +15,7 @@ class App extends Component {
 
     this.addTag = this.addTag.bind(this);
     this.removeTag = this.removeTag.bind(this);
+    this.changeBook = this.changeBook.bind(this);
     this._r = this._r.bind(this);
     this._nullFunc = this._nullFunc.bind(this);
   }
@@ -46,7 +47,18 @@ class App extends Component {
       return t !== e.detail;
     });
     this.setState({
-      tagFilters: tags
+      selectedBook: tags
+    });
+  }
+
+  changeBook(e, data) {
+    let t = e.target.textContent;
+    if (t === 'All Books') {
+      t = null;
+    }
+
+    this.setState({
+      selectedBook: t
     });
   }
 
@@ -88,6 +100,25 @@ class App extends Component {
       });
     }
 
+    if (this.state.selectedBook !== null) {
+      let book = books.filter((b) => {
+        return b.text === this.state.selectedBook
+      });
+
+
+      let _id = book[0].value;
+      news = news.filter((n) => {
+        if (n.userBooks === undefined) {
+          return false;
+        } else {
+          let matches = n.userBooks.filter((ubs) => {
+            return ubs === _id;
+          });
+          return matches.length > 0;
+        }
+      });
+    }
+
     return (
       <div>
         <Menu>
@@ -112,6 +143,7 @@ class App extends Component {
                 placeholder='Book'
                 search
                 selection
+                onChange={this.changeBook}
                 options={books} />
             </Menu.Item>
           </Menu.Menu>
