@@ -40,6 +40,7 @@ class List extends Component {
       );
     }
     const userBooks = this.props.userBooks;
+    let now = moment();
 
     return (
       <Grid celled>
@@ -53,7 +54,7 @@ class List extends Component {
                 <Image src={d.urlToImage}/>
               </Grid.Column>
               <Grid.Column width={13}>
-                <Label as='a' color='red' ribbon>{d.title}</Label>
+                <Label as='a' color={now.diff(moment(d.publishedAt), 'hours') > 24 ? 'grey' : 'red'} ribbon>{d.title}</Label>
                 {feedback}
                 <p>{moment(d.publishedAt).fromNow()}</p>
                 <p><Link to={"/main/"+ d._id}>{d.description}</Link></p>
