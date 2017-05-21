@@ -7,12 +7,13 @@ import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-
 class App extends Component {
   state = {
     tagFilters: [] ,
     bookVal: '',
+    selectedBook: null
 }
+  state = { tagFilters: [], selectedBook: null }
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   constructor(props) {
@@ -21,7 +22,9 @@ class App extends Component {
     this.addTag = this.addTag.bind(this);
     this.removeTag = this.removeTag.bind(this);
     this.onChangeBook = this.onChangeBook.bind(this);
-
+    this.changeBook = this.changeBook.bind(this);
+    this._r = this._r.bind(this);
+    this._nullFunc = this._nullFunc.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +50,28 @@ class App extends Component {
   }
 
   removeTag(e) {
-    let tags = this.stateTagFilters.filter((t) => {
+    let tags = this.state.tagFilters.filter((t) => {
       return t !== e.detail;
+    });
+    this.setState({
+      selectedBook: tags
+    });
+  }
+
+  changeBook(e, data) {
+    let t = e.target.textContent;
+    if (t === 'All Books') {
+      t = null;
+    }
+
+    this.setState({
+      selectedBook: t
+    });
+  }
+
+  _r(tag) {
+    let tags = this.state.tagFilters.filter((t) => {
+      return t !== tag;
     });
     this.setState({
       tagFilters: tags
@@ -58,6 +81,9 @@ class App extends Component {
   onChangeBook(e, data){
     console.log("onchange", data);
     this.setState({bookVal: data.value})
+  }
+  _nullFunc(t) {
+    //do nothing
   }
 
   render() {
@@ -73,6 +99,37 @@ class App extends Component {
       };
     });
 
+    if (this.state.tagFilters.length > 0) {
+      let filters = this.state.tagFilters;
+      news = news.filter((n) => {
+        if (n.tags !== undefined) {
+          let matchCount = n.tags.filter((nn) => filters.includes(nn));
+          return matchCount.length > 0;
+        } else {
+          return false;
+        }
+      });
+    }
+
+    if (this.state.selectedBook !== null) {
+      let book = books.filter((b) => {
+        return b.text === this.state.selectedBook
+      });
+
+
+      let _id = book[0].value;
+      news = news.filter((n) => {
+        if (n.userBooks === undefined) {
+          return false;
+        } else {
+          let matches = n.userBooks.filter((ubs) => {
+            return ubs === _id;
+          });
+          return matches.length > 0;
+        }
+      });
+    }
+
     return (
       <div>
         <Menu>
@@ -84,9 +141,9 @@ class App extends Component {
             <Menu.Item>
               {this.state.tagFilters.map((t) => {
                 return <Tag key={`header-tag-for-${t}`}
-                  filter={null}
+                  filter={this._nullFunc}
                   text={t}
-                  remove={null} />
+                  remove={this._r} />
 
               })}
             </Menu.Item>
@@ -98,6 +155,7 @@ class App extends Component {
                 placeholder='Book'
                 search
                 selection
+                onChange={this.changeBook}
                 options={books} />
             </Menu.Item>
             <Menu.Item>
