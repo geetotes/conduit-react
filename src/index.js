@@ -45,14 +45,6 @@ fb.on('value', snapshot => {
   ReactDOM.render(
     <Router {...store}>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/home">About</Link></li>
-        <li><Link to="/main">Topics</Link></li>
-      </ul>
-
-      <hr/>
-
       <Route exact path="/" component={(props) => <App {...props} data={store} newsActionsTemp={newsActions}/>} />
       <Route path="/home" component={Home}   />
       <Route path="/main/:newsId" component={(props) => <MainPage  {...props} data={store}  newsActionsTemp={newsActions}/>}   />
