@@ -23,9 +23,21 @@ class List extends Component {
     // this.setState({isChecked: !this.state.isChecked});
     if(data.checked){
       let allData = this.props.userArticle || [];
-      this.props.newsActionsTemp.adduserArticle({_id: allData.length || 0,  userId: this.props.selectedBook, newsId: news._id, order: 1 });
+      this.props.newsActionsTemp.adduserArticle({userId: this.props.selectedBook, newsId: news._id, order: 1 });
     }else{
       // this.props.find
+      console.log("this.props.userArticle", this.props.userArticle);
+      const selectedArtices = this.props.userArticle;
+      // const temp = this.props.userArticle.map(x=> {console.log(x); return 1});
+      for (var tempProps in selectedArtices) {
+        console.log(`this.props.userArticle.${tempProps} `,selectedArtices[tempProps]);
+
+        if(selectedArtices[tempProps].userId == this.props.selectedBook && selectedArtices[tempProps].newsId == news._id){
+          console.log("Found", tempProps);
+          this.props.newsActionsTemp.removeUserArticle(tempProps);
+        }
+      }
+      // this.prps.newsActionsTemp.removeUserArticle();
     }
   }
   getUserTagByName(d){
@@ -55,6 +67,7 @@ class List extends Component {
 
   render() {
     let items = this.props.items;
+    let userArticle = Object.keys(this.props.userArticle).map(key => this.props.userArticle[key]) || [];
     const newsActions = this.props.newsActionsTemp;
     let feedback = null;
     if (this.props.activeItem === 'sent') {
@@ -104,6 +117,7 @@ class List extends Component {
                   {(this.props.selectedBook&& d.userBooks.indexOf(this.props.selectedBook) > -1 ) &&
                     <Grid.Column>
                       <Checkbox
+                        checked={userArticle.filter((v,i,k) => { console.log(v.newsId , d._id , v.userId  , this.props.selectedBook ); return v.newsId === d._id&& v.userId === this.props.selectedBook;}).length > 0}
                         label={{ children: 'Select' }}
                         onChange={(e,data) => this.checkBooked(e, data ,d)} />
                     </Grid.Column>
