@@ -47,6 +47,24 @@ class List extends Component {
     console.log("userbookTags", userbookTags)
     return userbookTags;
   }
+
+  getLabelColor(d) {
+    let now = moment();
+    let color = 'grey';
+    if (now.diff(moment(d.publishedAt), 'hours') < 24) {
+      color = 'red';
+    }
+
+    if (d.userBooks !== undefined && d.userBooks.length > 0) {
+      color = 'teal';
+      if (now.diff(moment(d.publishedAt), 'hours') < 24) {
+        color = 'blue';
+      }
+    }
+
+    return color;
+  }
+
   render() {
     let items = this.props.items;
     let userArticle = Object.keys(this.props.userArticle).map(key => this.props.userArticle[key]) || [];
@@ -79,7 +97,6 @@ class List extends Component {
     }
 
     const userBooks = this.props.userBooks;
-    let now = moment();
 
     return (
       <Grid celled>
@@ -87,7 +104,6 @@ class List extends Component {
           const userbookTags = d.userBooks? d.userBooks.map((x) => {
             return userBooks.filter(y => y._id === x)[0].fullName;
           }) : [];
-          // console.log("news", d._id, "userbooks", d.userBooks, userbookTags);
           return (
             <Grid.Row key={`grid-item-${i}`}>
               <Grid.Column width={3}>
@@ -96,7 +112,7 @@ class List extends Component {
               <Grid.Column width={13}>
                 <Grid.Row columns={2}>
                   <Grid.Column>
-                    <Label as='a' color={now.diff(moment(d.publishedAt), 'hours') > 24 ? 'grey' : 'red'} ribbon>{d.title}</Label>
+                    <Label as='a' color={this.getLabelColor(d)} ribbon>{d.title}</Label>
                   </Grid.Column>
                   {(this.props.selectedBook&& d.userBooks.indexOf(this.props.selectedBook) > -1 ) &&
                     <Grid.Column>
