@@ -18,7 +18,7 @@ class App extends Component {
     this.removeTag = this.removeTag.bind(this);
     //this.handleItemClick = this.handleItemClick(this);
   }
-  
+
   componentDidMount() {
     window.addEventListener('addTag', this.addTag, false);
     window.addEventListener('removeTag', this.addTag, false);
@@ -100,7 +100,7 @@ class App extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <List items={news} activeItem={activeItem}/>
+        <List items={news} userBooks={this.props.data.userBooks} activeItem={activeItem}/>
       </div>
     );
   }
