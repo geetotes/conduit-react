@@ -27,15 +27,19 @@ const fb = firebase
   .initializeApp(config)
   .database()
   .ref();
+  const getNewsbyId = id => fb.child('news').child(id);
 
   const addNews = data => fb.child('news').push(data, response => response);
   const updateNews = (id, data) => fb.child(`news/${id}`).update(data, response => response);
   export const newsActions = {
     addNews,
     updateNews,
+    getNewsbyId,
   };
 
 fb.on('value', snapshot => {
+  // console.log("snapshot", snapshot)
+
   const store = snapshot.val();
   console.log("index.js", store)
   ReactDOM.render(
@@ -51,7 +55,7 @@ fb.on('value', snapshot => {
 
       <Route exact path="/" component={(props) => <App {...props} data={store} newsActionsTemp={newsActions}/>} />
       <Route path="/home" component={Home}   />
-      <Route path="/main/:newsID" component={MainPage}   />
+      <Route path="/main/:newsId" component={(props) => <MainPage  {...props} data={store}  newsActionsTemp={newsActions}/>}   />
     </div>
   </Router>,
     document.getElementById('root')
