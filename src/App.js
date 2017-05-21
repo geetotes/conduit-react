@@ -157,7 +157,7 @@ class App extends Component {
     return (
       <div>
         <Menu>
-          <Menu.Item header>Today's News</Menu.Item>
+          <Menu.Item header>No News Lost</Menu.Item>
           <Menu.Item name='newest' active={activeItem === 'newest'} onClick={this.handleItemClick} />
           <Menu.Item name='oldest' active={activeItem === 'oldest'} onClick={this.handleItemClick} />
           <Menu.Item name='sent' active={activeItem === 'sent'} onClick={this.handleItemClick} />
