@@ -99,6 +99,12 @@ class App extends Component {
       };
     });
 
+    books.unshift ({
+      key: 'book-list-allbooks',
+      value: null,
+      text: 'All Books'
+    });
+
     if (this.state.tagFilters.length > 0) {
       let filters = this.state.tagFilters;
       news = news.filter((n) => {
