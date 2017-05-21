@@ -57,7 +57,7 @@ class List extends Component {
     let items = this.props.items;
     const newsActions = this.props.newsActionsTemp;
     let feedback = null;
-    if (this.props.activeItem === 'yesterday') {
+    if (this.props.activeItem === 'sent') {
       let options = [
         {
           key: 1,
