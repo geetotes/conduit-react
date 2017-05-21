@@ -28,7 +28,6 @@ const fb = firebase
   .database()
   .ref();
   const getNewsbyId = id => fb.child('news').child(id);
-
   const addNews = data => fb.child('news').push(data, response => response);
   const updateNews = (id, data) => fb.child(`news/${id}`).update(data, response => response);
   export const newsActions = {

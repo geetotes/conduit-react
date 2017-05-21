@@ -10,6 +10,7 @@ class List extends Component {
   }
   render() {
     let items = this.props.items;
+    const newsActions = this.props.newsActionsTemp;
     let feedback = null;
     if (this.props.activeItem === 'yesterday') {
       let options = [
@@ -54,8 +55,18 @@ class List extends Component {
                 {feedback}
                 <p>{d.publishedAt}</p>
                 <p>{d.description}</p>
-                <Tags key={`tags-$i`} icon={'tags'} tags={d.tags}/>
-                <Tags key={`users-$i`} icon={'user circle outline'} tags={userbookTags} options={userBooks}/>
+                <Tags key={`tags-$i`} icon={'tags'}
+                  tags={d.tags}
+                  item={d}
+                  itemPropsName={'tags'}
+                  updateTags={newsActions.updateNews}/>
+
+                <Tags key={`users-$i`} icon={'user circle outline'}
+                  tags={userbookTags}
+                  item={d}
+                  options={userBooks}
+                  itemPropsName={'userBooks'}
+                  updateTags={newsActions.updateNews}/>
               </Grid.Column>
             </Grid.Row>
           );

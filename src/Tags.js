@@ -21,11 +21,39 @@ class Tags extends Component {
     this._change = this._change.bind(this);
     this._add = this._add.bind(this);
     this._filter = this._filter.bind(this);
+    this.updateNewsAPI = this.updateNewsAPI.bind(this);
+
+  }
+
+  updateNewsAPI(newTags){
+    console.log("update news", newTags, this.props.updateTags )
+    if(this.props.updateTags){
+      if(this.props.itemPropsName === 'tags'){
+        const newNews =  Object.assign({}, this.props.item, {tags: newTags});
+        this.props.updateTags(this.props.item._id, newNews );
+      }else if(this.props.itemPropsName === 'userBooks'){
+        console.log("save userbooks", newTags);
+        //Save array of ID to userbooks
+        const newUserbooks = newTags.map(x=>{
+          const results = this.props.options.filter(y => y.fullName === x);
+          if(results.length > 0){
+            return results[0]._id;
+          }else{
+            return null;
+          }
+        })
+
+        const newNews =  Object.assign({}, this.props.item, {userBooks: newUserbooks});
+        this.props.updateTags(this.props.item._id, newNews );
+      }
+
+    }
   }
 
   _add(e) {
     e.preventDefault();
     let tags = this.state.tags.concat(this.state.tag);
+    this.updateNewsAPI(tags);
     this.setState({
       tags: tags,
       tag: ''
@@ -48,6 +76,7 @@ class Tags extends Component {
       return t !== e
     });
     let ev = new CustomEvent('removeTag', { detail: e });
+    this.updateNewsAPI(tags);
 
     this.setState({
       tags: tags
@@ -58,9 +87,13 @@ class Tags extends Component {
   resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
 
   handleResultSelect = (e, result) => {
-    console.log(e,result);
-    const newTags = this.state.tags.push(result.fullName);
-    this.setState({ value: ""})
+    const tags = this.state.tags.concat(result.fullName);
+    this.updateNewsAPI(tags);
+    this.setState({
+      tags: tags,
+      tag: '',
+      value: ''
+    })
   }
 
   handleSearchChange = (e, value) => {

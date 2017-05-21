@@ -53,15 +53,7 @@ class App extends Component {
   render() {
     const { activeItem } = this.state;
     let news = this.props.data.news;
-    // if (news === undefined) {
-    //   alert('Error with firebase -- news is undefined');
-    //   return;
-    // }
-    //
-    // if (this.props.users === undefined) {
-    //   alert('Error with firebase -- users are undefined');
-    //   return;
-    // }
+    console.log("APP", this.props);
 
     let books = this.props.data.users.map((u) => {
       return {
@@ -100,7 +92,7 @@ class App extends Component {
             </Menu.Item>
           </Menu.Menu>
         </Menu>
-        <List items={news} userBooks={this.props.data.userBooks} activeItem={activeItem}/>
+        <List items={news} userBooks={this.props.data.userBooks} activeItem={activeItem} newsActionsTemp={this.props.newsActionsTemp} />
       </div>
     );
   }
