@@ -21,7 +21,6 @@ class App extends Component {
 
     this.addTag = this.addTag.bind(this);
     this.removeTag = this.removeTag.bind(this);
-    this.onChangeBook = this.onChangeBook.bind(this);
     this.changeBook = this.changeBook.bind(this);
     this._r = this._r.bind(this);
     this._nullFunc = this._nullFunc.bind(this);
@@ -67,6 +66,8 @@ class App extends Component {
     this.setState({
       selectedBook: t
     });
+    this.setState({bookVal: data.value})
+
   }
 
   _r(tag) {
@@ -78,18 +79,13 @@ class App extends Component {
     });
   }
 
-  onChangeBook(e, data){
-    console.log("onchange", data);
-    this.setState({bookVal: data.value})
-  }
+
   _nullFunc(t) {
-    //do nothing
   }
 
   render() {
     const { activeItem, bookVal } = this.state;
     let news = this.props.data.news;
-    console.log("APP", this.props);
 
     let books = this.props.data.userBooks.map((u) => {
       return {
@@ -157,11 +153,10 @@ class App extends Component {
           <Menu.Menu position='right'>
             <Menu.Item>
               <Dropdown
-                onChange={(e, data) => this.onChangeBook(e, data)}
                 placeholder='Book'
                 search
                 selection
-                onChange={this.changeBook}
+                onChange={(e, data) => this.changeBook(e, data)}
                 options={books} />
             </Menu.Item>
             <Menu.Item>
@@ -170,7 +165,9 @@ class App extends Component {
           </Menu.Menu>
         </Menu>
         <List
+          selectedBook={this.state.bookVal}
           items={news}
+          userArticle={this.props.data.userArticle}
           userBooks={this.props.data.userBooks}
           activeItem={activeItem}
           newsActionsTemp={this.props.newsActionsTemp} />

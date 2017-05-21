@@ -31,11 +31,14 @@ const fb = firebase
   //News API
   const getNewsbyId = id => fb.child('news').child(id);
   const addNews = data => fb.child('news').push(data, response => response);
+  const adduserArticle = data => fb.child('userArticle').push(data, response => response);
+
   const updateNews = (id, data) => fb.child(`news/${id}`).update(data, response => response);
   export const newsActions = {
     addNews,
     updateNews,
     getNewsbyId,
+    adduserArticle,
   };
   //User API
   const getUsersbyId = id => fb.child('users').child(id);
@@ -44,7 +47,7 @@ const fb = firebase
     getUsersbyId,
     updateUserbyID,
   };
-  
+
   fb.on('value', snapshot => {
   const store = snapshot.val();
 
