@@ -136,7 +136,6 @@ class App extends Component {
       });
     }
 
-
     return (
       <div>
         <Menu>

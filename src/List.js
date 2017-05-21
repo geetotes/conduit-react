@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tags from './Tags.js';
 import Books from './Books.js';
+import BookTags from './BookTags.js';
 import { Grid, Image, Label, Dropdown, Icon } from 'semantic-ui-react'
 import './App.css';
 import * as moment from 'moment';
@@ -64,7 +65,7 @@ class List extends Component {
                   itemPropsName={'tags'}
                   updateTags={newsActions.updateNews}/>
 
-                <Tags key={`users-$i`} icon={'user circle outline'}
+                <BookTags key={`users-$i`} icon={'user circle outline'}
                   tags={userbookTags}
                   item={d}
                   options={userBooks}
