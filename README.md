@@ -1,10 +1,14 @@
 # No Lost News
 A workflow tool providing fast curation and feedback mechanisms. Designed to be the user interface to a machine-learning powered intelligence brief recommendation system.
+![Logo](https://raw.githubusercontent.com/geetotes/conduit-react/master/gallery.jpg)
+![Screenshot 1](https://raw.githubusercontent.com/geetotes/conduit-react/master/gallery1.jpg)
+![Screenshot 2](https://raw.githubusercontent.com/geetotes/conduit-react/master/gallery2.jpg)
 
-## Winner 2017 Seattle Expedition Hacks Grand Prize
+## Winner 2017 Seattle Expedition Hacks $10,000 Grand Prize
+![Photo with check](https://raw.githubusercontent.com/geetotes/conduit-react/master/Team_No_Lost_News.jpg)
 
-[Expedition Hacks Seattle](http://expeditionhacks.com/seattle/)
-[Devpost](https://devpost.com/software/no-lost-news)
+* [Expedition Hacks Seattle](http://expeditionhacks.com/seattle/)
+* [Project Devpost](https://devpost.com/software/no-lost-news)
 
 ### Key Features
 * Easy categorization of information 
