@@ -39,9 +39,10 @@ class List extends Component {
   }
 
   render() {
-    const { items, newsActionsTemp } = this.props;
+    const { items, newsActionsTemp, userBooks, sentDisabled, activeItem, selectedBook } = this.props;
+
     let feedback = null;
-    if (this.props.activeItem === 'sent') {
+    if (activeItem === 'sent') {
       let options = [
         {
           key: 1,
@@ -67,10 +68,6 @@ class List extends Component {
       );
     }
 
-    const userBooks = this.props.userBooks;
-
-    let sentDisabled = this.props.selectDisabled;
-
     return (
       <Grid celled>
         {items.map((d,i) => {
@@ -87,11 +84,11 @@ class List extends Component {
                   <Grid.Column>
                     <Label as='a' color={this.getLabelColor(d)} ribbon>{d.title}</Label>
                   </Grid.Column>
-                  {(this.props.selectedBook&& d.userBooks.indexOf(this.props.selectedBook) > -1 ) &&
+                  {(selectedBook && d.userBooks.indexOf(selectedBook) > -1 ) &&
                     <Grid.Column>
                       <ListCheckbox
                         news={d}
-                        selectedBook={this.props.selectedBook}
+                        selectedBook={selectedBook}
                         >
                         </ListCheckbox>
                     </Grid.Column>

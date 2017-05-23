@@ -25,7 +25,6 @@ class IconBar extends Component {
         </a>
       </div>
     </div>
-
     );
   }
 }

@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router,  Route, Link } from 'react-router-dom'
-
+import {  database, newsActions, userActions} from './FirebaseService';
 
 import Home from './Home';
 import MainPage from './MainPage';
 import App from './App';
 import './index.css';
-import {  database, newsActions, userActions} from './FirebaseService';
 
 
   database.ref('news').on('value', snapshot => {
@@ -30,7 +29,6 @@ import {  database, newsActions, userActions} from './FirebaseService';
           document.getElementById('root')
       );
     });
-
   });
 });
 

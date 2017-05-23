@@ -69,15 +69,14 @@ class ListCheckbox extends Component {
 
 
   render() {
-    let items = this.props.items;
-    const { userArticleData } = this.state;
+    const { items, news, userBooks } = this.props;
+    const { userArticleData, checked } = this.state;
     let userArticle = userArticleData ? Object.keys(userArticleData).map(key => userArticleData[key]) : [];
-    const userBooks = this.props.userBooks;
     return (
       <Checkbox
-        checked={this.state.checked}
+        checked={checked}
         label={{ children: 'Select' }}
-        onChange={(e,data) => this.checkBooked(e, data ,this.props.news)} />
+        onChange={(e,data) => this.checkBooked(e, data, this.props.news)} />
     );
   }
 }

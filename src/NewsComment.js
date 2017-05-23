@@ -47,13 +47,13 @@ class NewsComment extends Component {
     });
   }
   render() {
-    const { item, updateNews } = this.props;
-    const usersOption = this.props.users.map(z=> ({key: z._id, value: z._id, text: z.name}));
+    const { item, updateNews, users } = this.props;
+    const usersOption = users.map(z=> ({key: z._id, value: z._id, text: z.name}));
     return (
       <Comment.Group>
         <Header as='h3' dividing>Comments</Header>
-        {item.comments&& item.comments.map(x =>{
-          const userTemp = this.props.users.filter(y => y._id === x.userId)[0];
+        { item.comments && item.comments.map(x =>{
+          const userTemp = users.filter(y => y._id === x.userId)[0];
           return (
             <Comment>
               <Comment.Content>
