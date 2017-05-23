@@ -31,14 +31,11 @@ class BookTags extends Component {
   }
 
   updateNewsAPI(newTags){
-    console.log("update news", newTags, this.props.updateTags )
     if(this.props.updateTags){
       if(this.props.itemPropsName === 'tags'){
         const newNews =  Object.assign({}, this.props.item, {tags: newTags});
         this.props.updateTags(this.props.item._id, newNews );
       }else if(this.props.itemPropsName === 'userBooks'){
-        console.log("save userbooks", newTags);
-        //Save array of ID to userbooks
         const newUserbooks = newTags.map(x=>{
           const results = this.props.options.filter(y => y.fullName === x);
           if(results.length > 0){
@@ -134,7 +131,7 @@ class BookTags extends Component {
     if (availTags.length > 0) {
       let newTags = currentTags.concat(availTags[Math.floor(Math.random()*availTags.length)]);
       alert(`Brefing book suggestions: ${newTags}`);
-    } 
+    }
 
 
   }
@@ -163,12 +160,12 @@ class BookTags extends Component {
                value={this.state.value}
                {...this.props}
              />}
-          <Button 
-            color='olive' 
-            floated={'right'} 
-            icon='cubes' 
-            labelPosition='left' 
-            content='Suggest' 
+          <Button
+            color='olive'
+            floated={'right'}
+            icon='cubes'
+            labelPosition='left'
+            content='Suggest'
             onClick={this.autoCategorize}/>
       </Segment>
     );

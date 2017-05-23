@@ -15,7 +15,7 @@ class App extends Component {
     selectDisabled: false
   }
 
-  state = { tagFilters: [], selectedBook: null }
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   constructor(props) {
@@ -154,6 +154,25 @@ class App extends Component {
       });
     }
 
+    const popularActive = (news) => {
+      var results = {};
+      for (var i = 0; i < news.length; i++) {
+        const everyTagsOnNews = news[i].tags || [];
+        for (var j = 0; j < everyTagsOnNews.length; j++) {
+          if(results[everyTagsOnNews[j]]){
+            results[everyTagsOnNews[j]]++ ;
+          }else{
+            results[everyTagsOnNews[j]] = 1;
+          }
+        }
+      }
+      console.log("result", results);
+       const tempResult = Object.keys(results).map((key) => ({count: results[key], value: key})) || [];
+       console.log("tempResult", tempResult);
+
+      return tempResult;
+    }
+
     return (
       <div>
         <Menu>
@@ -182,14 +201,20 @@ class App extends Component {
                 options={books} />
             </Menu.Item>
             <Menu.Item>
-              <Button 
-                icon='send' 
-                disable={bookVal} 
+              <Button
+                icon='send'
+                disable={bookVal}
                 onClick={this.selectDisabled}
                 className="snedButton"/>
             </Menu.Item>
           </Menu.Menu>
         </Menu>
+
+        {/* {popularActive(this.props.data.news).map((x, tempIndex)=>
+          <Tag
+            key={`overall-for-${tempIndex}`}
+            text={x.value + " " + x.count}/>
+          )} */}
         <List
           selectedBook={this.state.bookVal}
           selectDisabled={this.state.selectDisabled}

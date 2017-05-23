@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import './MainPage.css';
 import 'semantic-ui-css/semantic.min.css';
 import * as moment from 'moment';
-// import './../public/css/font-awesome.min.css';
 
 class IconBar extends Component {
 
-
   render() {
-  
     return (
-
       <div>
         <div className="ui labeled button" tabindex="0">
         <div className="ui red button">
@@ -29,7 +25,6 @@ class IconBar extends Component {
         </a>
       </div>
     </div>
-
     );
   }
 }

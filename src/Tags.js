@@ -3,10 +3,12 @@ import { Icon, Label, Button, Input, Segment, Search } from 'semantic-ui-react';
 import Tag from './Tag.js';
 
 const resultRenderer = ({ fullName, jobTitle }) => (
-  <Label content={<div>
+  <Label content={
+    <div>
     <h5>{fullName}</h5>
     <p>{jobTitle}</p>
-  </div>} />
+  </div>
+  } />
 )
 
 class Tags extends Component {
@@ -46,7 +48,6 @@ class Tags extends Component {
             return null;
           }
         })
-
         const newNews =  Object.assign({}, this.props.item, {userBooks: newUserbooks});
         this.props.updateTags(this.props.item._id, newNews );
       }

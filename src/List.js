@@ -3,49 +3,21 @@ import Tags from './Tags.js';
 import Books from './Books.js';
 import { Grid, Image, Label, Dropdown, Icon, Checkbox } from 'semantic-ui-react'
 import BookTags from './BookTags.js';
-// import { Grid, Image, Label, Dropdown, Icon } from 'semantic-ui-react'
 import './App.css';
 import * as moment from 'moment';
 import { Link } from 'react-router-dom';
-
+import ListCheckbox  from './ListCheckbox.js'
 class List extends Component {
-  state = {
-    isChecked: false,
-  }
+
   constructor(props) {
     super(props);
-    this.checkBooked = this.checkBooked.bind(this);
-    this.getUserTagByName = this.getUserTagByName.bind(this);
+     this.getUserTagByName = this.getUserTagByName.bind(this);
   }
 
-  checkBooked(e, data, news){
-    console.log("checked", data, e, news);
-    let checked = this.state.isChecked;
-    this.setState({isChecked: !checked });
-    if(data.checked){
-      let allData = this.props.userArticle || [];
-  //    this.props.newsActionsTemp.adduserArticle({userId: this.props.selectedBook, newsId: news._id, order: 1 });
-    }else{
-      // this.props.find
-      console.log("this.props.userArticle", this.props.userArticle);
-      const selectedArtices = this.props.userArticle;
-      // const temp = this.props.userArticle.map(x=> {console.log(x); return 1});
-      for (var tempProps in selectedArtices) {
-        console.log(`this.props.userArticle.${tempProps} `,selectedArtices[tempProps]);
-
-        if(selectedArtices[tempProps].userId == this.props.selectedBook && selectedArtices[tempProps].newsId == news._id){
-          console.log("Found", tempProps);
-          //this.props.newsActionsTemp.removeUserArticle(tempProps);
-        }
-      }
-      // this.prps.newsActionsTemp.removeUserArticle();
-    }
-  }
   getUserTagByName(d){
     const userbookTags = d.userBooks? d.userBooks.map((x) => {
       return this.props.userBooks.filter(y => y._id === x)[0].fullName;
     }) : [];
-    console.log("userbookTags", userbookTags)
     return userbookTags;
   }
 
@@ -67,11 +39,10 @@ class List extends Component {
   }
 
   render() {
-    let items = this.props.items;
-    let userArticle = Object.keys(this.props.userArticle).map(key => this.props.userArticle[key]) || [];
-    const newsActions = this.props.newsActionsTemp;
+    const { items, newsActionsTemp, userBooks, sentDisabled, activeItem, selectedBook } = this.props;
+
     let feedback = null;
-    if (this.props.activeItem === 'sent') {
+    if (activeItem === 'sent') {
       let options = [
         {
           key: 1,
@@ -97,10 +68,6 @@ class List extends Component {
       );
     }
 
-    const userBooks = this.props.userBooks;
-
-    let sentDisabled = this.props.selectDisabled;
-
     return (
       <Grid celled>
         {items.map((d,i) => {
@@ -117,13 +84,13 @@ class List extends Component {
                   <Grid.Column>
                     <Label as='a' color={this.getLabelColor(d)} ribbon>{d.title}</Label>
                   </Grid.Column>
-                  {(this.props.selectedBook&& d.userBooks.indexOf(this.props.selectedBook) > -1 ) &&
+                  {(selectedBook && d.userBooks.indexOf(selectedBook) > -1 ) &&
                     <Grid.Column>
-                      <Checkbox
-                        disabled={this.props.selectDisabled}
-                        checked={this.state.checked}
-                        label={{ children: 'Select' }}
-                        onChange={(e,data) => this.checkBooked(e, data ,d)} />
+                      <ListCheckbox
+                        news={d}
+                        selectedBook={selectedBook}
+                        >
+                        </ListCheckbox>
                     </Grid.Column>
                   }
                 </Grid.Row>
@@ -135,15 +102,14 @@ class List extends Component {
                   tags={d.tags}
                   item={d}
                   itemPropsName={'tags'}
-                  updateTags={newsActions.updateNews}/>
-
+                  updateTags={newsActionsTemp.updateNews}/>
 
                 <BookTags key={`users-$i`} icon={'user circle outline'}
                   tags={userbookTags}
                   item={d}
                   options={userBooks}
                   itemPropsName={'userBooks'}
-                  updateTags={newsActions.updateNews}/>
+                  updateTags={newsActionsTemp.updateNews}/>
               </Grid.Column>
             </Grid.Row>
           );

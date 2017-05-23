@@ -23,7 +23,6 @@ class MainPage extends Component {
   }
 
   render() {
-    console.log("props", this.props);
     const news = this.state.newsData;
     return (
 
@@ -31,14 +30,14 @@ class MainPage extends Component {
         <div className="mainPanel">
           <div className="row footerBar">
             <IconBar/>
-            <h5 className="timeTag">{news? news.source : "No new was found"}</h5>
-            <h5 className="timeTag">{news? moment(news.publishedAt).fromNow() : "No new was found"}</h5>
+            <h5 className="timeTag">{news ? news.source : "No new was found"}</h5>
+            <h5 className="timeTag">{news ? moment(news.publishedAt).fromNow() : "No new was found"}</h5>
           </div>
-          {news&& <img className="mainImg" src={news.urlToImage} />  }
-          <h2>{news? news.title : "No new was found"}</h2>
-          <h5>{news? news.description : "No new was found"}</h5>
+          {news && <img className="mainImg" src={news.urlToImage} />  }
+          <h2>{news ? news.title : "No new was found"}</h2>
+          <h5>{news ? news.description : "No new was found"}</h5>
           <div className="commentSection">
-            {news&&<NewsComment item={news}
+            {news && <NewsComment item={news}
               className = "comment"
               users={this.props.data.users}
               updateNews={this.props.newsActionsTemp.updateNews}
